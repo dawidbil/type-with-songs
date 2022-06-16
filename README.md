@@ -10,10 +10,11 @@ Clone repo and install [pygame](https://www.pygame.org/wiki/GettingStarted).
 
 Run `main.py`.
 
+Change game parameters by fiddling in `constants.py` file.
 
 #### TODO
 
-* add pytest and do lots of tests
+* ~~add pytest and do lots of more tests~~ create more tests
 * scoreboard on top of the screen with information: hits/misses, time left
 * add support for lowercase/uppercase and symbols that need shift modifier
 * add music in background
