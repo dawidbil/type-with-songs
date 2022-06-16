@@ -13,6 +13,7 @@ Run `main.py`.
 
 #### TODO
 
+* add pytest and do lots of tests
 * scoreboard on top of the screen with information: hits/misses, time left
 * add support for lowercase/uppercase and symbols that need shift modifier
 * add music in background
