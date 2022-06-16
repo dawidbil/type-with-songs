@@ -31,7 +31,8 @@ def generate_character_list(length: int) -> List[str]:
 
 
 def generate_random_pos(width: int, height: int) -> Tuple:
-    return random.randint(0, width), random.randint(0, height)
+    offset = max(width, height) / 10
+    return random.randint(offset, width - offset), random.randint(offset, height - offset)
 
 
 def generate_random_start_time(max_time: int) -> int:
