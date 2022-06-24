@@ -1,8 +1,10 @@
 import random
 import game.constants as const
+from game.constants import LettersColumns
 from game.character import Character
 from string import ascii_uppercase, digits
 from typing import List, Tuple
+from functools import reduce
 
 
 def get_all_letters() -> List[str]:
@@ -47,3 +49,19 @@ def linear_transition(start: int, end: int, duration: int, elapsed: int) -> int:
 def linear_color_transition(color_start: Tuple, color_end: Tuple, duration: int, elapsed: int):
     return tuple([linear_transition(component_start, component_end, duration, elapsed)
                   for component_start, component_end in zip(color_start, color_end)])
+
+
+def create_character_from_letter(letter: List) -> Character:
+    text = get_letter_from_groups(letter[LettersColumns.values], letter[LettersColumns.groups])
+    pos = generate_random_pos(const.SCREEN_WIDTH, const.SCREEN_HEIGHT)
+    return Character(text, pos, letter[LettersColumns.timestamp])
+
+
+def get_letter_from_groups(values: str, groups: str) -> str:
+    if values != '':
+        return random.choices(list(values), k=1)[0]
+    else:
+        # sorry
+        letters = reduce(lambda x, y: const.LETTER_GROUPS[x] + const.LETTER_GROUPS[y], groups.split('|'))
+        return random.choices(list(letters), k=1)[0]
+

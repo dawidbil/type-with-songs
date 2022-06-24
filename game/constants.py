@@ -1,3 +1,6 @@
+from enum import IntEnum
+from string import ascii_lowercase, digits
+
 SCREEN_WIDTH = 300
 SCREEN_HEIGHT = 300
 
@@ -15,3 +18,15 @@ CHARACTER_FADING_OUT_SCALE = 1.5
 COLOR_BACKGROUND = (40, 40, 40)
 COLOR_FONT = (150, 150, 200)
 COLOR_FONT_DECAYING = (200, 100, 100)
+
+
+class LettersColumns(IntEnum):
+    timestamp = 0
+    values = 1
+    groups = 2
+
+
+LETTER_GROUPS = {
+    "LOWERCASE": ascii_lowercase,
+    "DIGITS": digits
+}

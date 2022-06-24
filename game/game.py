@@ -4,6 +4,7 @@ import pygame.font as font
 import game.constants as const
 import game.utils as utils
 from game.character import Character
+from game.level import Level
 
 
 class Game:
@@ -24,7 +25,9 @@ class Game:
         self.screen.blit(text_surface, text_rect)
 
     def run_main_loop(self):
-        character_queue = utils.generate_character_queue()
+        level = Level.load_from_yaml("levels/first.yaml")
+        character_queue = level.letters
+        # character_queue = utils.generate_character_queue()
         character_queue.sort()
         logging.debug("Character queue: %s", character_queue)
 
@@ -37,11 +40,15 @@ class Game:
                     is_over = not is_over
                 elif event.type == pygame.KEYDOWN:
                     for character in character_queue:
-                        if event.key == pygame.key.key_code(character.text)\
-                           and character.is_visible(ticks):
-                            logging.debug("Hit key: %s", character.text)
-                            character.time_end = ticks
-                            break
+                        try:
+                            if event.key == pygame.key.key_code(character.text)\
+                               and character.is_visible(ticks):
+                                logging.debug("Hit key: %s", character.text)
+                                character.time_end = ticks
+                                break
+                        except ValueError as exception:
+                            print(exception)
+                            print(character)
 
             self.screen.fill(pygame.Color(const.COLOR_BACKGROUND))
             for character in character_queue:
