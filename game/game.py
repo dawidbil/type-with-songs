@@ -4,10 +4,12 @@ import pygame.font as font
 import game.constants as const
 import game.utils as utils
 from game.character import Character
+from game.level import Level
 
 
 class Game:
-    def __init__(self) -> None:
+    def __init__(self, level_filename: str) -> None:
+        self.level_filename = level_filename
         pygame.init()
         self.screen = pygame.display.set_mode((const.SCREEN_WIDTH, const.SCREEN_HEIGHT))
         self.font = font.Font(None, const.FONT_SIZE)
@@ -24,7 +26,8 @@ class Game:
         self.screen.blit(text_surface, text_rect)
 
     def run_main_loop(self):
-        character_queue = utils.generate_character_queue()
+        level = Level.load_from_yaml(f"levels/{self.level_filename}")
+        character_queue = level.letters
         character_queue.sort()
         logging.debug("Character queue: %s", character_queue)
 
