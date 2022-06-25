@@ -8,7 +8,7 @@ Clone repo and install [pygame](https://www.pygame.org/wiki/GettingStarted).
 
 #### Usage
 
-Run `main.py <level_filename>` where `level_filename` is name of the level file in side `/data` directory (i.e. `first.yaml`, `random.yaml`)
+Run `main.py <level_filename>` where `level_filename` is name of the level file inside `/data` directory (i.e. `first.yaml`, `random.yaml`)
 
 Change game parameters by fiddling in `constants.py` file.
 
