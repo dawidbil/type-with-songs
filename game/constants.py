@@ -28,5 +28,6 @@ class LettersColumns(IntEnum):
 
 LETTER_GROUPS = {
     "LOWERCASE": ascii_lowercase,
-    "DIGITS": digits
+    "DIGITS": digits,
+    "": ""
 }
