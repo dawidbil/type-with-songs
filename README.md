@@ -19,7 +19,7 @@ Change game parameters by fiddling in `constants.py` file.
 * add support for lowercase/uppercase and symbols that need shift modifier
 * add music in background
 * ~~create map files which will determine when what letters appear~~
-* add menu where you can select map
+* ~~add menu where you can select map~~
 * add map editor, so it's possible to sync appearing letters with music
 * some kind of graphic overhaul, so it doesn't look so ugly
 * add infinite mode where new letter will appear after the previous one gets "hit"
