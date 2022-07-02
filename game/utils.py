@@ -1,8 +1,14 @@
+import os
 import random
 import pygame
 import game.constants as const
 from typing import Tuple
 from functools import reduce
+from pathlib import Path
+
+
+def get_project_base_path() -> str:
+    return Path(__file__).parent.parent
 
 
 def generate_random_pos(rect: pygame.Rect, size: Tuple) -> Tuple:
