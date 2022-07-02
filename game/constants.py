@@ -1,4 +1,5 @@
 from string import ascii_lowercase, digits
+from enum import Flag, auto
 
 SCREEN_LEFT = SCREEN_TOP = 0
 SCREEN_WIDTH = 300
@@ -9,7 +10,8 @@ SCOREBOARD_PADDING = (25, 15, 25, 15)
 SCOREBOARD_PADDING_LEFT, SCOREBOARD_PADDING_TOP, SCOREBOARD_PADDING_RIGHT, SCOREBOARD_PADDING_BOTTOM = SCOREBOARD_PADDING
 
 FONT_SIZE = 40
-INTERFACE_SCALING = 1
+MENU_FONT_SIZE = 40
+MENU_CAROUSEL_SIZE = 3
 
 CHARACTER_FADING_IN_DURATION = 1000
 CHARACTER_DECAYING_DURATION = 3000
@@ -25,3 +27,10 @@ LETTER_GROUPS = {
     "LOWERCASE": ascii_lowercase,
     "DIGITS": digits,
 }
+
+
+class Alignment(Flag):
+    top = auto()
+    bottom = auto()
+    left = auto()
+    right = auto()
