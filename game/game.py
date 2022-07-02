@@ -1,54 +1,31 @@
 import pygame
 import logging
-import pygame.font as font
 import game.constants as const
-import game.utils as utils
-from game.character import Character
+from game.screen.StandardModeScreen import StandardModeScreen
 
 
 class Game:
-    def __init__(self) -> None:
+    def __init__(self, level_filename: str) -> None:
         pygame.init()
-        self.screen = pygame.display.set_mode((const.SCREEN_WIDTH, const.SCREEN_HEIGHT))
-        self.font = font.Font(None, const.FONT_SIZE)
-
+        pygame.event.set_allowed((pygame.QUIT, pygame.KEYDOWN))
+        self.surface = pygame.display.set_mode((const.SCREEN_WIDTH, const.SCREEN_HEIGHT))
+        self.level_filename = level_filename
         logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
 
-    def render_character(self, character: Character):
-        text_surface = self.font.render(character.text, True, character.color)
-        text_surface = pygame.transform.scale(
-            text_surface,
-            (text_surface.get_width() * character.scale, text_surface.get_height() * character.scale)
-        )
-        text_rect = text_surface.get_rect(center=character.position)
-        self.screen.blit(text_surface, text_rect)
-
     def run_main_loop(self):
-        character_queue = utils.generate_character_queue()
-        character_queue.sort()
-        logging.debug("Character queue: %s", character_queue)
+        screen = StandardModeScreen(self.level_filename)
 
         is_over = False
         while not is_over:
             ticks = pygame.time.get_ticks()
 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    is_over = not is_over
-                elif event.type == pygame.KEYDOWN:
-                    for character in character_queue:
-                        if event.key == pygame.key.key_code(character.text)\
-                           and character.is_visible(ticks):
-                            logging.debug("Hit key: %s", character.text)
-                            character.time_end = ticks
-                            break
+            screen.handle_events(ticks)
+            if len(pygame.event.get(pygame.QUIT)) != 0:
+                is_over = True
 
-            self.screen.fill(pygame.Color(const.COLOR_BACKGROUND))
-            for character in character_queue:
-                if character.is_visible(ticks):
-                    character.update_state(ticks)
-                    self.render_character(character)
+            self.surface.fill(pygame.Color(const.COLOR_BACKGROUND))
+            screen.render(self.surface, ticks)
             pygame.display.update()
 
-            if all([character.has_ended() and not character.is_fading_away(ticks) for character in character_queue]):
+            if screen.is_over(ticks):
                 is_over = True
