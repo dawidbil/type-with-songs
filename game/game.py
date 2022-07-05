@@ -1,16 +1,17 @@
 import pygame
+import pygame.freetype as freetype
 import logging
 import game.constants as const
 import game.screens as screens
 
 
 class Game:
-    def __init__(self, level_filename: str) -> None:
+    def __init__(self) -> None:
         pygame.init()
+        freetype.init()
         pygame.event.set_allowed((pygame.QUIT, pygame.KEYDOWN))
         self.surface = pygame.display.set_mode((const.SCREEN_WIDTH, const.SCREEN_HEIGHT))
-        self.level_filename = level_filename
-        self.screen = screens.MainMenuScreen()
+        self.screen = screens.MainMenu()
         self.screen_start = pygame.time.get_ticks()
         logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
 

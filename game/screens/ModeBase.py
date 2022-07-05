@@ -3,17 +3,15 @@ import logging
 import pygame
 import pygame.freetype as freetype
 import game.constants as const
-import game.screens as screens
-from game.utils import generate_random_pos, get_project_base_path
-from game.level import Level
-from game.character import Character
+from game.screens import Screen, MainMenu
+from game.utils import get_project_base_path
 from game.widgets import Text
 from game.constants import Alignment
+from game.character import Character
 
 
-class StandardModeScreen(screens.Screen):
-    def __init__(self, level_filename: str) -> None:
-        freetype.init()
+class ModeBase(Screen):
+    def __init__(self):
         self.font = freetype.Font(os.path.join(get_project_base_path(), "PTSerif-Regular.ttf"), size=const.FONT_SIZE)
         scoreboard_bottom = const.SCOREBOARD_FONT_SIZE + const.SCOREBOARD_PADDING_TOP + const.SCOREBOARD_PADDING_BOTTOM
 
@@ -34,29 +32,17 @@ class StandardModeScreen(screens.Screen):
                                pygame.Rect(const.SCOREBOARD_PADDING),
                                alignment=Alignment.right,
                                color=const.COLOR_SCORE_FONT)
-
-        self.level = Level.load_from_yaml(f"levels/{level_filename}")
-        self.generate_characters_positions()
-        self.character_queue = self.level.letters
-        self.character_queue.sort()
-        self.queue_size = len(self.character_queue)
+        self.character_queue = []
         self.score = -1
         self._is_over = False
-        self.update_score()
 
     def update_score(self):
         self.score += 1
-        self.score_text.text = f"{self.score}/{self.queue_size}"
 
     def update_timer(self, ticks: int):
         mins = int(ticks / 60000)
         secs = int(ticks / 1000) % 60
         self.timer_text.text = f"{mins:02d}:{secs:02d}"
-
-    def generate_characters_positions(self):
-        for letter in self.level.letters:
-            text_rect = self.font.get_rect(letter.text)
-            letter.position = generate_random_pos(self.game_rect, text_rect.size)
 
     def render_character(self, surface: pygame.Surface, character: Character):
         font_scaled = self.font.size * character.scale
@@ -91,4 +77,4 @@ class StandardModeScreen(screens.Screen):
         return all(have_characters_ended) or self._is_over
 
     def get_next_screen(self):
-        return screens.MainMenuScreen()
+        return MainMenu()
