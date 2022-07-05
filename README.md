@@ -23,5 +23,5 @@ Change game parameters by fiddling in `constants.py` file.
 * add map editor, so it's possible to sync appearing letters with music
 * some kind of graphic overhaul, so it doesn't look so ugly
 * add infinite mode where new letter will appear after the previous one gets "hit"
-* add handling for window resising or block it
+* add handling for window resizing or block it
 * change letters appearing animation so player has to press it at the right time
