@@ -1,19 +1,20 @@
+import os.path
 import logging
 import pygame
 import pygame.freetype as freetype
 import game.constants as const
 import game.screens as screens
-from game.utils import generate_random_pos
+from game.utils import generate_random_pos, get_project_base_path
 from game.level import Level
 from game.character import Character
-from game.widgets.Text import Text
+from game.widgets import Text
 from game.constants import Alignment
 
 
 class StandardModeScreen(screens.Screen):
     def __init__(self, level_filename: str) -> None:
         freetype.init()
-        self.font = freetype.Font(None, size=const.FONT_SIZE)
+        self.font = freetype.Font(os.path.join(get_project_base_path(), "PTSerif-Regular.ttf"), size=const.FONT_SIZE)
         scoreboard_bottom = const.SCOREBOARD_FONT_SIZE + const.SCOREBOARD_PADDING_TOP + const.SCOREBOARD_PADDING_BOTTOM
 
         self.game_rect = pygame.Rect(const.SCREEN_LEFT, scoreboard_bottom, const.SCREEN_WIDTH,
