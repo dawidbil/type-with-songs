@@ -17,8 +17,7 @@ class MainMenuScreen(screens.Screen):
         self.carousel = widgets.Carousel(levels,
                                          self.font,
                                          self.menu_rect,
-                                         pygame.Rect((10, 10, 10, 10)),
-                                         const.Alignment.bottom)
+                                         pygame.Rect((10, 10, 10, 10)))
 
         self._is_over = False
         self.next_screen = None

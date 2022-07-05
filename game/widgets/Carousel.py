@@ -52,7 +52,12 @@ class Carousel(widgets.Widget):
         rect.height = const.MENU_CAROUSEL_SIZE * self.font.size
         self.calculate_rect(rect)
 
-        texts = [widgets.Text(freetype.Font(None, font.size), item, self.rect, pygame.Rect(0, 0, 0, 0), Alignment.left) for item in items]
+        texts = [widgets.Text(
+            freetype.Font(None, font.size),
+            item,
+            self.rect,
+            pygame.Rect(0, 0, 0, 0),
+        ) for item in items]
         self._carousel_list = CarouselList(texts)
 
     def render(self, surface: pygame.Surface, ticks: int):

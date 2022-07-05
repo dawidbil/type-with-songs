@@ -1,4 +1,3 @@
-import os
 import random
 import pygame
 import game.constants as const

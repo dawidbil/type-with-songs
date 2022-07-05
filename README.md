@@ -16,7 +16,7 @@ Change game parameters by fiddling in `constants.py` file.
 
 * ~~add pytest and do lots of more tests~~ create more tests
 * ~~scoreboard on top of the screen with information: hits/misses, time left~~
-* add support for lowercase/uppercase and symbols that need shift modifier
+* ~~add support for lowercase/uppercase and symbols that need shift modifier~~
 * add music in background
 * ~~create map files which will determine when what letters appear~~
 * ~~add menu where you can select map~~
