@@ -7,7 +7,7 @@ import game.utils as utils
 import game.constants as const
 
 
-class MainMenuScreen(screens.Screen):
+class MainMenu(screens.Screen):
     def __init__(self):
         self.font = freetype.Font(None, size=const.MENU_FONT_SIZE)
         levels = os.listdir(os.path.join(utils.get_project_base_path(), 'levels'))
@@ -36,7 +36,10 @@ class MainMenuScreen(screens.Screen):
                     self.carousel.next()
                 elif event.key == pygame.K_RETURN:
                     text_widget = self.carousel.value
-                    self.next_screen = screens.StandardModeScreen(f"{text_widget.text}.yaml")
+                    self.next_screen = screens.StandardMode(f"{text_widget.text}.yaml")
+                    self._is_over = True
+                elif event.key == pygame.K_s:
+                    self.next_screen = screens.InfiniteMode()
                     self._is_over = True
                 elif event.key == pygame.K_ESCAPE:
                     self._is_over = True

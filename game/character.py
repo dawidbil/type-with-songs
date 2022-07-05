@@ -43,8 +43,11 @@ class Character:
     def has_ended(self) -> bool:
         return self.time_end != -1
 
-    def is_fading_away(self, tick) -> bool:
+    def is_fading_away(self, tick: int) -> bool:
         return self.has_ended() and tick - self.time_end < const.CHARACTER_FADING_OUT_DURATION
+
+    def is_decayed(self, tick: int) -> bool:
+        return not self.has_ended() and tick - self.time_start > const.CHARACTER_DECAYING_DURATION
 
     def is_visible(self, tick: int) -> bool:
         return (self.has_started(tick) and not self.has_ended()) or self.is_fading_away(tick)

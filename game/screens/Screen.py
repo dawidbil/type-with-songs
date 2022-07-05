@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 
 class Screen(ABC):
     @abstractmethod
-    def render(self, screen: pygame.Surface, ticks: int) -> None:
+    def render(self, surface: pygame.Surface, ticks: int) -> None:
         pass
 
     @abstractmethod

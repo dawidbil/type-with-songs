@@ -4,6 +4,7 @@ import game.constants as const
 from typing import Tuple
 from functools import reduce
 from pathlib import Path
+from typing import Union
 
 
 def get_project_base_path() -> str:
@@ -26,7 +27,7 @@ def linear_color_transition(color_start: Tuple, color_end: Tuple, duration: int,
                   for component_start, component_end in zip(color_start, color_end)])
 
 
-def generate_character_text(values: str, groups: str) -> str:
+def generate_character_text(values: Union[str, None], groups: Union[str, None]) -> str:
     choices = values if values is not None else \
         reduce(lambda x, y: x + const.LETTER_GROUPS[y], groups.split('|'), '')
     return random.choices(list(choices), k=1)[0]
