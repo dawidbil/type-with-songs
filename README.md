@@ -25,3 +25,4 @@ Change game parameters by fiddling in `constants.py` file.
 * add infinite mode where new letter will appear after the previous one gets "hit"
 * add handling for window resizing or block it
 * change letters appearing animation so player has to press it at the right time
+* add fonts to select
