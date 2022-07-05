@@ -1,4 +1,4 @@
-from string import ascii_lowercase, digits
+from string import ascii_uppercase, ascii_lowercase, digits
 from enum import Flag, auto
 
 SCREEN_LEFT = SCREEN_TOP = 0
@@ -24,8 +24,10 @@ COLOR_FONT_DECAYING = (200, 100, 100)
 COLOR_SCORE_FONT = (36, 255, 189)
 
 LETTER_GROUPS = {
+    "UPPERCASE": ascii_uppercase,
     "LOWERCASE": ascii_lowercase,
     "DIGITS": digits,
+    "SYMBOLS": '''`-=[]\;',./~!@#$%^&*()_+{}|:"<>?'''
 }
 
 

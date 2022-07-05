@@ -76,9 +76,9 @@ class StandardModeScreen(screens.Screen):
         for event in pygame.event.get(pygame.KEYDOWN):
             if event.key == pygame.K_ESCAPE:
                 self._is_over = True
+        for event in pygame.event.get(pygame.TEXTINPUT):
             for character in self.character_queue:
-                if event.key == pygame.key.key_code(character.text) \
-                        and character.is_visible(ticks):
+                if event.text == character.text and character.is_visible(ticks):
                     logging.debug("Hit key: %s", character.text)
                     character.time_end = ticks
                     self.update_score()
