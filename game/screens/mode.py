@@ -3,14 +3,15 @@ import logging
 import pygame
 import pygame.freetype as freetype
 import game.constants as const
-from game.screens import Screen, MainMenu
+import game.screens.screen as screen
+import game.screens.menu as menu
+from game.widgets.text import Text
 from game.utils import get_project_base_path
-from game.widgets import Text
 from game.constants import Alignment
 from game.character import Character
 
 
-class ModeBase(Screen):
+class ModeBase(screen.Screen):
     def __init__(self):
         self.font = freetype.Font(os.path.join(get_project_base_path(), "PTSerif-Regular.ttf"), size=const.FONT_SIZE)
         scoreboard_bottom = const.SCOREBOARD_FONT_SIZE + const.SCOREBOARD_PADDING_TOP + const.SCOREBOARD_PADDING_BOTTOM
@@ -77,4 +78,4 @@ class ModeBase(Screen):
         return all(have_characters_ended) or self._is_over
 
     def get_next_screen(self):
-        return MainMenu()
+        return menu.MainMenu()

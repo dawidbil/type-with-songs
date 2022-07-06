@@ -1,11 +1,11 @@
 import pygame
 import pygame.freetype as freetype
 import game.constants as const
-import game.widgets as widgets
+import game.widgets.widget as widget
 from game.constants import Alignment
 
 
-class Text(widgets.Widget):
+class Text(widget.Widget):
     def __init__(self,
                  font: freetype.Font,
                  text: str,

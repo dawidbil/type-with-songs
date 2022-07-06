@@ -1,12 +1,12 @@
 import math
 import game.constants as const
-from game.screens import ModeBase
+import game.screens.mode as mode
 from game.character import Character
 from game.utils import generate_character_text, generate_random_pos
 from logging import getLogger
 
 
-class InfiniteMode(ModeBase):
+class InfiniteMode(mode.ModeBase):
     def __init__(self) -> None:
         super().__init__()
         self.interval = const.INFINITE_MODE_START_INTERVAL

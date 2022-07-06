@@ -1,7 +1,8 @@
 import pygame
 import pygame.freetype as freetype
-import game.widgets as widgets
 import game.constants as const
+import game.widgets.widget as widget
+import game.widgets.text as text
 from copy import copy
 from typing import List
 from game.constants import Alignment
@@ -39,7 +40,7 @@ class CarouselList:
         return self.current.value
 
 
-class Carousel(widgets.Widget):
+class Carousel(widget.Widget):
     def __init__(self,
                  items: List,
                  font: freetype.Font,
@@ -52,7 +53,7 @@ class Carousel(widgets.Widget):
         rect.height = const.MENU_CAROUSEL_SIZE * self.font.size
         self.calculate_rect(rect)
 
-        texts = [widgets.Text(
+        texts = [text.Text(
             freetype.Font(None, font.size),
             item,
             self.rect,

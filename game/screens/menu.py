@@ -1,23 +1,26 @@
 import os
 import pygame
 import pygame.freetype as freetype
-import game.screens as screens
-import game.widgets as widgets
 import game.utils as utils
 import game.constants as const
+import game.screens.screen as screen
+import game.screens.standard as standard
+import game.screens.infinite as infinite
+from game.widgets.carousel import Carousel
 
 
-class MainMenu(screens.Screen):
+class MainMenu(screen.Screen):
     def __init__(self):
         self.font = freetype.Font(None, size=const.MENU_FONT_SIZE)
         levels = os.listdir(os.path.join(utils.get_project_base_path(), 'levels'))
         levels = [level[:level.rfind('.')] for level in levels]
+        levels.append("infinite")
 
         self.menu_rect = pygame.Rect(const.SCREEN_LEFT, const.SCREEN_TOP, const.SCREEN_WIDTH, const.SCREEN_HEIGHT)
-        self.carousel = widgets.Carousel(levels,
-                                         self.font,
-                                         self.menu_rect,
-                                         pygame.Rect((10, 10, 10, 10)))
+        self.carousel = Carousel(levels,
+                                 self.font,
+                                 self.menu_rect,
+                                 pygame.Rect((10, 10, 10, 10)))
 
         self._is_over = False
         self.next_screen = None
@@ -36,10 +39,8 @@ class MainMenu(screens.Screen):
                     self.carousel.next()
                 elif event.key == pygame.K_RETURN:
                     text_widget = self.carousel.value
-                    self.next_screen = screens.StandardMode(f"{text_widget.text}.yaml")
-                    self._is_over = True
-                elif event.key == pygame.K_s:
-                    self.next_screen = screens.InfiniteMode()
+                    self.next_screen = infinite.InfiniteMode() if text_widget.text == "infinite" else \
+                        standard.StandardMode(f"{text_widget.text}.yaml")
                     self._is_over = True
                 elif event.key == pygame.K_ESCAPE:
                     self._is_over = True

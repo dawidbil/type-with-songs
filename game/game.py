@@ -2,7 +2,8 @@ import pygame
 import pygame.freetype as freetype
 import logging
 import game.constants as const
-import game.screens as screens
+import game.screens
+from game.screens.menu import MainMenu
 
 
 class Game:
@@ -11,7 +12,7 @@ class Game:
         freetype.init()
         pygame.event.set_allowed((pygame.QUIT, pygame.KEYDOWN))
         self.surface = pygame.display.set_mode((const.SCREEN_WIDTH, const.SCREEN_HEIGHT))
-        self.screen = screens.MainMenu()
+        self.screen = MainMenu()
         self.screen_start = pygame.time.get_ticks()
         logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
 

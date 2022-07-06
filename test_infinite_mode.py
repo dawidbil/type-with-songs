@@ -1,5 +1,5 @@
 import pygame
-from game.screens import InfiniteMode
+from game.screens import infinite
 
 
 def min_to_ms(min):

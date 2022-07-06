@@ -1,9 +1,9 @@
-from game.screens import ModeBase
+import game.screens.mode as mode
 from game.utils import generate_random_pos
 from game.level import Level
 
 
-class StandardMode(ModeBase):
+class StandardMode(mode.ModeBase):
     def __init__(self, level_filename: str) -> None:
         super().__init__()
         self.level = Level.load_from_yaml(f"levels/{level_filename}")

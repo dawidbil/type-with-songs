@@ -31,7 +31,7 @@ LETTER_GROUPS = {
     "UPPERCASE": ascii_uppercase,
     "LOWERCASE": ascii_lowercase,
     "DIGITS": digits,
-    "SYMBOLS": '''`-=[]\;',./~!@#$%^&*()_+{}|:"<>?'''
+    "SYMBOLS": '''`-=[]\;',./!@#$%^&*()_+{}|:"<>?'''
 }
 
 
