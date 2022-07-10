@@ -1,0 +1,59 @@
+# This is a config file for type-with-songs game
+# Feel free to experiment with different values
+# to adjust the typing experience ツ
+# Make sure to create a backup file before doing any changes
+# Also read comments - they are here to help
+
+test_tree:
+  nested_item: value
+  nested_dict:
+    double_nested_value: null
+    double_nested_list: [how, are, you]
+
+# Screen width and height - cannot be resized in-game!
+screen_width: 300
+screen_height: 300
+
+# texts you see at the top when playing the game
+scoreboard_font_size: 25
+# padding: [top, left, bottom, right]
+scoreboard_padding: [25, 15, 25, 15]
+
+# TODO: figure out where this value is used lmao
+font_size: 40
+
+# I don't think this one needs explaining
+menu_font_size: 40
+
+# controls how many levels are shown at once
+menu_carousel_size: 3
+
+# the following controls animations on appearing letters when playing
+character_fading_in_duration: 1000
+character_decaying_duration: 3000
+character_fading_out_duration: 50
+character_fading_out_scale: 1.5
+
+# colors in RGB values [technically you can add A(lpha)] component as 4th element of the list)
+# I didn't try it tho ^^
+color_background: [40, 40, 40]
+color_font: [150, 150, 150]
+color_font_decaying: [200, 100, 100]
+color_score_font: [36, 255, 189]
+
+# here you can control infinite mode to make it harder/easier for yourself
+# interval is basically time before next letter spawns
+# currently it's a function of time and looks like this:
+# interval = infinite_mode_start_interval - (time * infinite_mode_interval_drop_speed) / math.log10(time)
+# also
+# interval = max(interval, infinite_mode_min_interval)
+# it's not great but it works - I'm open to suggestions
+
+# this one isn't really starting interval...
+# but intervals should start around this value ^^
+infinite_mode_start_interval: 1000
+# the bigger the faster but it's quite sensitive
+infinite_mode_interval_drop_speed: 0.008
+# this is actual minimum interval
+# the time between letter spawns won't be less than this
+infinite_mode_min_interval: 100
