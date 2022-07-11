@@ -1,5 +1,5 @@
 import game.utils as utils
-import game.constants as const
+import game.config as config
 from dataclasses import dataclass
 from typing import Tuple
 
@@ -11,7 +11,7 @@ class Character:
     time_start: int
     time_end: int = -1
     scale: float = 0.
-    color: Tuple = const.COLOR_FONT
+    color: Tuple = tuple(config.color_font)
 
     def update_state(self, tick: int) -> None:
         self.__update_color(tick)
@@ -20,22 +20,22 @@ class Character:
     def __update_color(self, tick: int) -> None:
         time_alive = tick - self.time_start
         color = utils.linear_color_transition(
-            const.COLOR_FONT,
-            const.COLOR_FONT_DECAYING,
-            const.CHARACTER_DECAYING_DURATION,
-            min(max(0, time_alive - const.CHARACTER_FADING_IN_DURATION), const.CHARACTER_DECAYING_DURATION)
+            config.color_font,
+            config.color_font_decaying,
+            config.character_decaying_duration,
+            min(max(0, time_alive - config.character_fading_in_duration), config.character_decaying_duration)
         )
         alpha = 255 if not self.has_ended() else \
-            utils.linear_transition(255, 0, const.CHARACTER_FADING_OUT_DURATION, tick - self.time_end)
+            utils.linear_transition(255, 0, config.character_fading_out_duration, tick - self.time_end)
         self.color = color + (alpha, )
 
     def __update_scale(self, tick: int) -> None:
         time_alive = tick - self.time_start
-        self.scale = min(time_alive, const.CHARACTER_FADING_IN_DURATION) / const.CHARACTER_FADING_IN_DURATION
+        self.scale = min(time_alive, config.character_fading_in_duration) / config.character_fading_in_duration
         if self.has_ended():
-            fading_away_scale = min(tick - self.time_end, const.CHARACTER_FADING_OUT_DURATION) \
-                / const.CHARACTER_FADING_OUT_DURATION
-            self.scale += (const.CHARACTER_FADING_OUT_SCALE - self.scale) * fading_away_scale
+            fading_away_scale = min(tick - self.time_end, config.character_fading_out_duration) \
+                / config.character_fading_out_duration
+            self.scale += (config.character_fading_out_scale - self.scale) * fading_away_scale
 
     def has_started(self, tick: int) -> bool:
         return tick > self.time_start
@@ -44,10 +44,11 @@ class Character:
         return self.time_end != -1
 
     def is_fading_away(self, tick: int) -> bool:
-        return self.has_ended() and tick - self.time_end < const.CHARACTER_FADING_OUT_DURATION
+        return self.has_ended() and tick - self.time_end < config.character_fading_out_duration
 
     def is_decayed(self, tick: int) -> bool:
-        return not self.has_ended() and tick - self.time_start > const.CHARACTER_DECAYING_DURATION + const.CHARACTER_FADING_IN_DURATION
+        return not self.has_ended() and \
+               tick - self.time_start > config.character_decaying_duration + config.character_fading_in_duration
 
     def is_visible(self, tick: int) -> bool:
         return (self.has_started(tick) and not self.has_ended()) or self.is_fading_away(tick)

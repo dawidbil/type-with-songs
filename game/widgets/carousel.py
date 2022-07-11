@@ -1,11 +1,11 @@
 import pygame
 import pygame.freetype as freetype
-import game.constants as const
+import game.config as config
 import game.widgets.widget as widget
 import game.widgets.text as text
 from copy import copy
 from typing import List
-from game.constants import Alignment
+from game.utils import Alignment
 
 
 class CarouselList:
@@ -50,7 +50,7 @@ class Carousel(widget.Widget):
         super().__init__(parent_rect, padding, alignment)
         self.font = font
         rect = copy(parent_rect)
-        rect.height = const.MENU_CAROUSEL_SIZE * self.font.size
+        rect.height = config.menu_carousel_size * self.font.size
         self.calculate_rect(rect)
 
         texts = [text.Text(
@@ -62,11 +62,11 @@ class Carousel(widget.Widget):
         self._carousel_list = CarouselList(texts)
 
     def render(self, surface: pygame.Surface, ticks: int):
-        offset = const.MENU_CAROUSEL_SIZE // 2
-        for i in range(const.MENU_CAROUSEL_SIZE):
+        offset = config.menu_carousel_size // 2
+        for i in range(config.menu_carousel_size):
             index = i - offset
             text_widget = self._get_value_by_offset(index).value
-            text_widget.font.size = (1 / (abs(index) + 1)) * const.MENU_FONT_SIZE
+            text_widget.font.size = (1 / (abs(index) + 1)) * config.menu_font_size
             text_widget.parent_rect = self._get_rect_by_index(i)
             text_widget.calculate_rect()
             text_widget.render(surface, ticks)

@@ -1,6 +1,6 @@
 import pygame
 from abc import ABC, abstractmethod
-from game.constants import Alignment
+from game.utils import Alignment
 
 
 class Widget(ABC):

@@ -1,8 +1,8 @@
 import pygame
 import pygame.freetype as freetype
-import game.constants as const
+import game.config as config
 import game.widgets.widget as widget
-from game.constants import Alignment
+from game.utils import Alignment
 
 
 class Text(widget.Widget):
@@ -12,7 +12,7 @@ class Text(widget.Widget):
                  parent_rect: pygame.Rect,
                  padding: pygame.Rect = pygame.Rect(0, 0, 0, 0),
                  alignment: Alignment = None,
-                 color=const.COLOR_FONT):
+                 color=config.color_font):
         super().__init__(parent_rect, padding, alignment)
         self.font = font
         self.text = text

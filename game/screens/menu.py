@@ -2,7 +2,7 @@ import os
 import pygame
 import pygame.freetype as freetype
 import game.utils as utils
-import game.constants as const
+import game.config as config
 import game.screens.screen as screen
 import game.screens.standard as standard
 import game.screens.infinite as infinite
@@ -11,12 +11,12 @@ from game.widgets.carousel import Carousel
 
 class MainMenu(screen.Screen):
     def __init__(self):
-        self.font = freetype.Font(None, size=const.MENU_FONT_SIZE)
+        self.font = freetype.Font(None, size=config.menu_font_size)
         levels = os.listdir(os.path.join(utils.get_project_base_path(), 'levels'))
         levels = [level[:level.rfind('.')] for level in levels]
         levels.append("infinite")
 
-        self.menu_rect = pygame.Rect(const.SCREEN_LEFT, const.SCREEN_TOP, const.SCREEN_WIDTH, const.SCREEN_HEIGHT)
+        self.menu_rect = pygame.Rect(config.screen_left, config.screen_top, config.screen_width, config.screen_height)
         self.carousel = Carousel(levels,
                                  self.font,
                                  self.menu_rect,

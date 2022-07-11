@@ -4,13 +4,10 @@
 # Make sure to create a backup file before doing any changes
 # Also read comments - they are here to help
 
-test_tree:
-  nested_item: value
-  nested_dict:
-    double_nested_value: null
-    double_nested_list: [how, are, you]
-
-# Screen width and height - cannot be resized in-game!
+# you don't wanna change those two :P
+screen_left: 0
+screen_top: 0
+# screen width and height - cannot be resized in-game!
 screen_width: 300
 screen_height: 300
 
@@ -37,7 +34,7 @@ character_fading_out_scale: 1.5
 # colors in RGB values [technically you can add A(lpha)] component as 4th element of the list)
 # I didn't try it tho ^^
 color_background: [40, 40, 40]
-color_font: [150, 150, 150]
+color_font: [150, 150, 90]
 color_font_decaying: [200, 100, 100]
 color_score_font: [36, 255, 189]
 

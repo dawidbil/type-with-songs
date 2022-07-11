@@ -1,10 +1,26 @@
 import random
 import pygame
-import game.constants as const
 from typing import Tuple
 from functools import reduce
 from pathlib import Path
 from typing import Union
+from string import ascii_uppercase, ascii_lowercase, digits
+from enum import Flag, auto
+
+
+LETTER_GROUPS = {
+    "UPPERCASE": ascii_uppercase,
+    "LOWERCASE": ascii_lowercase,
+    "DIGITS": digits,
+    "SYMBOLS": '''`-=[]\;',./!@#$%^&*()_+{}|:"<>?'''
+}
+
+
+class Alignment(Flag):
+    top = auto()
+    bottom = auto()
+    left = auto()
+    right = auto()
 
 
 def get_project_base_path() -> str:
@@ -29,5 +45,5 @@ def linear_color_transition(color_start: Tuple, color_end: Tuple, duration: int,
 
 def generate_character_text(values: Union[str, None], groups: Union[str, None]) -> str:
     choices = values if values is not None else \
-        reduce(lambda x, y: x + const.LETTER_GROUPS[y], groups.split('|'), '')
+        reduce(lambda x, y: x + LETTER_GROUPS[y], groups.split('|'), '')
     return random.choices(list(choices), k=1)[0]

@@ -1,5 +1,5 @@
 import math
-import game.constants as const
+import game.config as config
 import game.screens.mode as mode
 from game.character import Character
 from game.utils import generate_character_text, generate_random_pos
@@ -9,7 +9,7 @@ from logging import getLogger
 class InfiniteMode(mode.ModeBase):
     def __init__(self) -> None:
         super().__init__()
-        self.interval = const.INFINITE_MODE_START_INTERVAL
+        self.interval = config.infinite_mode_start_interval
         self.time_since_last_spawn = 0
         self.update_score()
 
@@ -18,8 +18,8 @@ class InfiniteMode(mode.ModeBase):
         self.score_text.text = f"{self.score}/?"
 
     def update_interval(self, ticks: int) -> None:
-        interval = const.INFINITE_MODE_START_INTERVAL - (ticks * const.INFINITE_MODE_INTERVAL_DROP_SPEED) / math.log10(ticks)
-        self.interval = max(interval, const.INFINITE_MODE_MIN_INTERVAL)
+        interval = config.infinite_mode_start_interval - (ticks * config.infinite_mode_interval_drop_speed) / math.log10(ticks)
+        self.interval = max(interval, config.infinite_mode_min_interval)
         getLogger(__name__).debug(f"Interval: {self.interval}")
 
     def update_spawn_time(self, ticks: int) -> None:
