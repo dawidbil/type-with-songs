@@ -19,8 +19,10 @@ class Text(widget.Widget):
         self.color = color
         self.calculate_rect()
 
-    def calculate_rect(self, rect: pygame.Rect = pygame.Rect(0, 0, 0, 0)):
-        super().calculate_rect(self.font.get_rect(self.text))
+    def calculate_rect(self, rect: pygame.Rect = None):
+        super().calculate_rect(self.font.get_rect(self.text) if rect is None else rect)
 
     def render(self, surface: pygame.Surface, ticks: int):
+        # surface.fill((30, 30, 70), self.parent_rect)
+        # surface.fill((30, 70, 30), self.rect)
         self.font.render_to(surface, self.rect, self.text, fgcolor=self.color)

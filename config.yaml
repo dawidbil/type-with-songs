@@ -23,7 +23,7 @@ font_size: 40
 menu_font_size: 40
 
 # controls how many levels are shown at once
-menu_carousel_size: 3
+menu_carousel_size: 5
 
 # the following controls animations on appearing letters when playing
 character_fading_in_duration: 1000

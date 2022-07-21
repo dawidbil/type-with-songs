@@ -1,4 +1,5 @@
 import pygame
+from copy import copy
 from abc import ABC, abstractmethod
 from game.utils import Alignment
 
@@ -10,8 +11,8 @@ class Widget(ABC):
                  pygame.Rect,
                  padding: pygame.Rect = pygame.Rect(0, 0, 0, 0),
                  alignment: Alignment = None):
-        self.parent_rect = parent_rect
-        self.padding = padding
+        self.parent_rect = copy(parent_rect)
+        self.padding = copy(padding)
         self.alignment = alignment
         self.rect = None
 
@@ -27,7 +28,9 @@ class Widget(ABC):
         if rect.height > max_height:
             rect.height = max_height
 
-    def calculate_rect(self, rect: pygame.Rect):
+    def calculate_rect(self, rect: pygame.Rect = None):
+        if rect is None:
+            rect = copy(self.parent_rect)
         self.resize_to_parent(rect)
         rect.center = self.parent_rect.center
         if self.alignment is not None:
@@ -39,4 +42,4 @@ class Widget(ABC):
                 rect.top = self.parent_rect.top + self.padding.y
             elif Alignment.bottom in self.alignment:
                 rect.bottom = self.parent_rect.bottom - self.padding.h
-        self.rect = rect
+        self.rect = copy(rect)

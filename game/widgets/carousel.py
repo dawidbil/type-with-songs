@@ -3,6 +3,7 @@ import pygame.freetype as freetype
 import game.config as config
 import game.widgets.widget as widget
 import game.widgets.text as text
+from functools import reduce
 from copy import copy
 from typing import List
 from game.utils import Alignment
@@ -49,32 +50,37 @@ class Carousel(widget.Widget):
                  alignment: Alignment = None):
         super().__init__(parent_rect, padding, alignment)
         self.font = font
-        rect = copy(parent_rect)
-        rect.height = config.menu_carousel_size * self.font.size
-        self.calculate_rect(rect)
+        self.calculate_rect()
 
         texts = [text.Text(
             freetype.Font(None, font.size),
             item,
             self.rect,
-            pygame.Rect(0, 0, 0, 0),
+            padding=pygame.Rect(0, 0, 0, 0),
+            alignment=Alignment.left
         ) for item in items]
         self._carousel_list = CarouselList(texts)
 
+    # https://imgur.com/a/C2YBfzZ
+    # index<=>offset, offset<=>max_offset xd
     def render(self, surface: pygame.Surface, ticks: int):
-        offset = config.menu_carousel_size // 2
+        # surface.fill((70, 30, 30), self.rect)
+        max_offset = config.menu_carousel_size // 2
         for i in range(config.menu_carousel_size):
-            index = i - offset
-            text_widget = self._get_value_by_offset(index).value
-            text_widget.font.size = (1 / (abs(index) + 1)) * config.menu_font_size
-            text_widget.parent_rect = self._get_rect_by_index(i)
+            offset = i - max_offset
+            scale = self._get_scale_by_index(offset)
+            rect = pygame.Rect(0, 0, self.rect.width, config.menu_font_size)
+            rect.center = self.parent_rect.center
+            rect.y -= config.menu_font_size * offset
+            text_widget = self._get_value_by_offset(offset).value
+            text_widget.parent_rect = rect
+            text_widget.font.size = scale * config.menu_font_size
             text_widget.calculate_rect()
             text_widget.render(surface, ticks)
 
-    def _get_rect_by_index(self, index):
-        y = self.rect.top
-        y += index * self.font.size
-        return pygame.Rect(self.rect.x, y, self.rect.width, self.font.size)
+    @staticmethod
+    def _get_scale_by_index(index):
+        return 1 / (abs(index) + 1)
 
     def _get_value_by_offset(self, offset):
         node = self._carousel_list.current
