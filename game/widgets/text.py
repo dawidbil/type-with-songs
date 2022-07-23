@@ -12,7 +12,7 @@ class Text(widget.Widget):
                  parent_rect: pygame.Rect,
                  padding: pygame.Rect = pygame.Rect(0, 0, 0, 0),
                  alignment: Alignment = None,
-                 color=config.color_font):
+                 color=config.color_menu_font):
         super().__init__(parent_rect, padding, alignment)
         self.font = font
         self.text = text

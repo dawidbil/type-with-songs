@@ -71,7 +71,7 @@ class Carousel(widget.Widget):
             scale = self._get_scale_by_index(offset)
             rect = pygame.Rect(0, 0, self.rect.width, config.menu_font_size)
             rect.center = self.parent_rect.center
-            rect.y -= config.menu_font_size * offset
+            rect.y += config.menu_font_size * offset
             text_widget = self._get_value_by_offset(offset).value
             text_widget.parent_rect = rect
             text_widget.font.size = scale * config.menu_font_size

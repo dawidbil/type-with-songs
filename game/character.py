@@ -13,6 +13,9 @@ class Character:
     scale: float = 0.
     color: Tuple = tuple(config.color_font)
 
+    def time_until_hit(self, tick: int):
+        return tick - self.time_start
+
     def update_state(self, tick: int) -> None:
         self.__update_color(tick)
         self.__update_scale(tick)

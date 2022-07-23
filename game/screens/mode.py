@@ -44,11 +44,21 @@ class ModeBase(screen.Screen):
         secs = int(ticks / 1000) % 60
         self.timer_text.text = f"{mins:02d}:{secs:02d}"
 
+    def render_character_shadow(self, surface: pygame.Surface, character: Character):
+        font_scaled = self.font.size * (2 - character.scale)
+        text_rect = self.font.get_rect(character.text, size=font_scaled)
+        text_rect.center = character.position
+        color = pygame.Color(character.color)
+        color.a = min(int(character.scale * 55), 255)
+        self.font.render_to(surface, text_rect, character.text, fgcolor=color, size=font_scaled)
+
     def render_character(self, surface: pygame.Surface, character: Character):
         font_scaled = self.font.size * character.scale
         text_rect = self.font.get_rect(character.text, size=font_scaled)
         text_rect.center = character.position
-        self.font.render_to(surface, text_rect, character.text, fgcolor=character.color, size=font_scaled)
+        color = pygame.Color(character.color)
+        color.a = min(int(character.scale * 155), 255)
+        self.font.render_to(surface, text_rect, character.text, fgcolor=color, size=font_scaled)
 
     def render(self, surface: pygame.Surface, ticks: int) -> None:
         self.score_text.render(surface, ticks)
@@ -56,6 +66,7 @@ class ModeBase(screen.Screen):
         for character in self.character_queue:
             if character.is_visible(ticks):
                 character.update_state(ticks)
+                self.render_character_shadow(surface, character)
                 self.render_character(surface, character)
 
     def handle_events(self, ticks: int) -> None:
